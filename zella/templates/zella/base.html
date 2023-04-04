@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" class="bg-slate-200">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Zella E-Learning Portal</title>
+    <style>
+        input{
+            outline: none;
+        }
+    </style>
+  </head>
+  <body>
+     <div>
+        <h1 class="font-bold text-[2em]">Zella E-Learning</h1
+     </div>
+
+     <div class="flex">
+        {% block content %}
+
+        {% endblock content %}
+     </div>
+    
+    {% block footer %}
+         <p>Copyright © 2023  mywebsite.com</p>
+    {% endblock footer %}
+  </body>
+</html>
