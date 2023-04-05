@@ -24,7 +24,7 @@ class QuestionInline(admin.TabularInline):
 class QuizAdmin(admin.ModelAdmin):
     model = Quiz
     fieldsets = [
-        ('Quiz', {"fields": ['title']}),
+        ('Quiz', {"fields": ['title','due_date', 'unit']}),
     ]
     classes = ['collapse']
     inlines = [QuestionInline]

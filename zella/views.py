@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
-from .models import ZellaUser
+from .models import ZellaUser, Unit, Question, Quiz, Course, Course
 
 from django.core.exceptions import ValidationError
 
@@ -10,7 +10,8 @@ from django.core.exceptions import ValidationError
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'zella/index.html', {'user': request.user})
+        courses = Course.objects.all()
+        return render(request, 'zella/profile.html', {'user': request.user, 'courses': courses})
     else:
         return HttpResponseRedirect('/zella/login')
 
@@ -87,7 +88,40 @@ def logout(request):
     return HttpResponseRedirect('/zella/login')
 
 def quizes(request):
-    return render(request, 'zella/quizes.html')
+    if request.user.is_authenticated:
+        quizs = Quiz.objects.all()
+        return render(request, 'zella/quizes.html', { 'quizes': quizs })
+    else:
+        return HttpResponseRedirect('/zella/login')
+    
+
+def startquiz(request, quiz_id):
+    if request.user.is_authenticated:
+        quizs = Quiz.objects.all()
+        quiz = Quiz.objects.get(id=quiz_id)
+        questions = Question.objects.filter(quiz_id=quiz_id)
+        return render(request, 'zella/quizes.html', { 'quizes': quizs, 'questions': questions, 'quiztitle': quiz.title })
+    else:
+        return HttpResponseRedirect('/zella/login')
+
 
 def profile(request):
-    return render(request, 'zella/profile.html')
+    if request.user.is_authenticated:
+        courses = Course.objects.all()
+        return render(request, 'zella/profile.html', {'user': request.user, 'courses': courses})
+    else:
+        return HttpResponseRedirect('/zella/login')
+
+def units(request):
+    if request.user.is_authenticated:
+        units = Unit.objects.all()
+        return render(request, 'zella/units.html', {'units': units})
+    else:
+        return HttpResponseRedirect('/zella/login')
+
+def courses(request):
+    if request.user.is_authenticated:
+        courses = Course.objects.all()
+        return render(request, 'zella/courses.html', { 'courses': courses})
+    else:
+        return HttpResponseRedirect('/zella/login')

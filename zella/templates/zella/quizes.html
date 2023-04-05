@@ -2,8 +2,38 @@
 
 {% block content %}
 
-<h2>Quizzes</h2>
+<h2 class="text-xl font-bold text-center mb-5">Quizzes Due</h2>
+<div class="flex">
+    <div class="flex flex-col gap-3">
+    {% for quiz in quizes %}
 
+        <div class=" max-w-[200px] text-center overflow-hidden border-2 pb-2 bg-slate-400 border-2 border-slate-400 hover:ring-4 hover:ring-green-900 flex flex-col">
+            <h2 class="font-bold p-3 text-black">{{quiz.title}}</h2>
+            <h2 class="text-sm px-1 bg-slate-200">{{quiz.unit.name}}</h2>
+            <p class=" p-3">Due: {{quiz.due_date}}<p/>
+            <a href="/zella/startquiz/{{quiz.pk}}/" class="bg-green-700 text-white my-2 px-3 py-2 rounded hover:bg-green-900 cursor-pointer">Start Quiz</a>
+        </div>
+
+    {% endfor %}
+    </div>
+    <div class="flex flex-col flex-grow ml-1 items-center border-2 border-black">
+        <h2 class="font-bold p-3 text-white text-xl text-center bg-black w-full">{{quiztitle}}</h2>
+        <form class="pb-4">
+        {% for qtn in questions %}
+            <div class="m-3 max-w-lg border-2 border-green-700/50 rounded-lg min-h-[100px] bg-white overflow-hidden">
+                <h3 class="p-3 bg-green-400 font-bold">{{qtn}}</h3>
+                {% for choice in qtn.choice_set.all %}
+                    <div class="flex items-center p-3">
+                        <input class="mr-2 ml-4" type="radio" name={{qtn.pk}} />
+                        <label>{{choice}}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+            <input class="block mx-auto bg-green-700 px-6 py-2 rounded font-bold text-white hover:ring-2 hover:ring-green-700 hover:bg-white hover:text-green-700" type="submit" value="Submit Quiz" />
+        </form>
+    </div>
+</div>
 
 
 {% endblock %}

@@ -16,7 +16,7 @@
         }
     </style>
   </head>
-  <body class="text-white font-serif">
+  <body class="text-white">
      <div class="flex bg-green-900 p-3">
         <h1 class="font-bold text-[2em] flex-grow">Zella E-Learning</h1>
         {% if user %}
@@ -38,14 +38,14 @@
             <div class="flex max-w-[120px]">
                 <img class="" src="https://png.pngitem.com/pimgs/s/7-70388_school-house-png-school-icon-transparent-background-png.png" alt="Logo" />
             </div>
-            <div class="flex flex-col text-center p-1 font-bold">
+            <div class="flex flex-col text-center p-1 font-bold min-w-[120px]">
+                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/courses">Courses</a>
                 <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/units">Units</a>
                 <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/quizes">Quizes</a>
-                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/assignments">Assignments</a>
             </div>
         </div>
 
-        <div class="flex-grow min-h-[100vh] text-black">
+        <div class="flex-grow min-h-[100vh] text-black bg-slate-200">
             {% block content %}
 
             {% endblock content %}
