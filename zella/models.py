@@ -62,6 +62,10 @@ class Quiz(models.Model):
     due_date = models.DateField('Due Date', blank=False)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+    
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)

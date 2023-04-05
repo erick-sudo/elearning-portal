@@ -11,56 +11,61 @@ from .models import ZellaUser
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
-    classes = ['collapse']
 
-class QuestionInline(admin.StackedInline):
-    extra = 0
+class QuestionInline(admin.TabularInline):
     model = Question
     fieldsets = [
         ('Question', {'fields': ['question_text']}),
-        ('Creation Date', {'fields': ['pub_date'], 'classes': ['collapse']}),
+        #('Creation Date', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
-    classes = ['collapse']
     inlines = [ChoiceInline]
     list_display = ('question_text', 'pub_date' )
 
-class QuizInline(admin.StackedInline):
-    extra = 0
+class QuizAdmin(admin.ModelAdmin):
     model = Quiz
     fieldsets = [
-        ('Quiz', {"fields": ['Description','due_date']}),
+        ('Quiz', {"fields": ['title']}),
     ]
     classes = ['collapse']
     inlines = [QuestionInline]
 
-class UnitInline(admin.StackedInline):
-    extra = 0
-    model = Unit
-    fieldsets = [
-        ('Unit Name', {"fields": ['name']}),
-        ('Unit Abbreviation', {"fields": ['abbr']}),
+class QuestionAdmin(admin.ModelAdmin):
+    model = Question
+    ffieldsets = [
+        ('Question', {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
-    classes = ['collapse']
-    inlines = [QuizInline]
+    inlines = [ChoiceInline]
+    
 
-class CourseInline(admin.StackedInline):
-    extra = 0
-    model = Course
-    fieldsets = [
-        ('Course Name', {"fields": ['name']}),
-        ('Course Abbreviation', {"fields": ['abbr']}),
-        ('Course Duration', {"fields": ['duration']}),
-    ]
-    classes = ['collapse']
-    inlines = [UnitInline]
+# class UnitInline(admin.StackedInline):
+#     extra = 0
+#     model = Unit
+#     fieldsets = [
+#         ('Unit Name', {"fields": ['name']}),
+#         ('Unit Abbreviation', {"fields": ['abbr']}),
+#     ]
+#     classes = ['collapse']
+#     inlines = [QuizInline]
 
-class CollegeAdmin(admin.ModelAdmin):
-    model = College
-    fieldsets = [
-        ('College Name', {"fields": ['name']}),
-        ('College Abbreviation', {"fields": ['abbr']}),
-    ]
-    inlines = [CourseInline]
+# class CourseInline(admin.StackedInline):
+#     extra = 0
+#     model = Course
+#     fieldsets = [
+#         ('Course Name', {"fields": ['name']}),
+#         ('Course Abbreviation', {"fields": ['abbr']}),
+#         ('Course Duration', {"fields": ['duration']}),
+#     ]
+#     classes = ['collapse']
+#     inlines = [UnitInline]
+
+# class CollegeAdmin(admin.ModelAdmin):
+#     model = College
+#     fieldsets = [
+#         ('College Name', {"fields": ['name']}),
+#         ('College Abbreviation', {"fields": ['abbr']}),
+#     ]
+#     inlines = [CourseInline]
 
 
 class ZellaUserAdmin(UserAdmin):
@@ -83,10 +88,10 @@ class ZellaUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(College, CollegeAdmin)
+admin.site.register(College)
 admin.site.register(Course)
 admin.site.register(Unit)
-admin.site.register(Quiz)
-admin.site.register(Question)
+admin.site.register(Quiz, QuizAdmin)
+admin.site.register(Question, QuestionAdmin)
 
 admin.site.register(ZellaUser, ZellaUserAdmin)

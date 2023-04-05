@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="bg-slate-200">
+<html lang="en" class="">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,21 +11,54 @@
         input{
             outline: none;
         }
+        html::-webkit-scrollbar {
+            width: 0;
+        }
     </style>
   </head>
-  <body>
-     <div>
-        <h1 class="font-bold text-[2em]">Zella E-Learning</h1
-     </div>
+  <body class="text-white font-serif">
+     <div class="flex bg-green-900 p-3">
+        <h1 class="font-bold text-[2em] flex-grow">Zella E-Learning</h1>
+        {% if user %}
 
-     <div class="flex">
-        {% block content %}
-
-        {% endblock content %}
+        <div class="flex flex-col cursor-pointer">
+            <h3 class="font-bold px-2">{{user}}</h3>
+            <div class="relative ">
+                <div class=" flex flex-col text-black absolute bg-green-500 right-0 left-0">
+                    <a class="hover:bg-slate-900 py-2 hover:text-white px-2" href="/zella/profile">Profile</a>
+                    <a class="hover:bg-slate-900 py-2 hover:text-white px-2" href="/zella/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        {% endif %}
      </div>
+     <div class="flex ">
+        <div class="flex flex-col gap-8 bg-green-900">
+            <div class="flex max-w-[120px]">
+                <img class="" src="https://png.pngitem.com/pimgs/s/7-70388_school-house-png-school-icon-transparent-background-png.png" alt="Logo" />
+            </div>
+            <div class="flex flex-col text-center p-1 font-bold">
+                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/units">Units</a>
+                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/quizes">Quizes</a>
+                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/assignments">Assignments</a>
+            </div>
+        </div>
+
+        <div class="flex-grow min-h-[100vh] text-black">
+            {% block content %}
+
+            {% endblock content %}
+        </div>
+    </div>
     
     {% block footer %}
-         <p>Copyright © 2023  mywebsite.com</p>
+        <div class="bg-green-900 min-h-[20vh] flex flex-col">
+            <div class="flex-grow">
+
+            </div>
+            <p class="text-center py-2">Copyright © 2023  mywebsite.com</p>
+        </div>
     {% endblock footer %}
   </body>
 </html>
