@@ -22,10 +22,10 @@
         {% if user %}
 
         <div class="flex flex-col cursor-pointer">
-            <h3 class="font-bold px-2">{{user}}</h3>
-            <div class="relative ">
-                <div class=" flex flex-col text-black absolute bg-green-500 right-0 left-0">
-                    <a class="hover:bg-slate-900 py-2 hover:text-white px-2" href="/zella/profile">Profile</a>
+            <div class="group relative ">
+                <h3 class="font-bold px-2">{{user}}</h3>
+                <div class="group-hover:flex hidden absolute flex-col text-black bg-green-500 right-0 left-0">
+                    <a class="hover:bg-slate-900 py-2 hover:text-white px-2 w-full" href="/zella/profile">Profile</a>
                     <a class="hover:bg-slate-900 py-2 hover:text-white px-2" href="/zella/logout">Logout</a>
                 </div>
             </div>
