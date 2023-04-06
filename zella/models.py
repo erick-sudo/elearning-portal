@@ -43,7 +43,7 @@ class ZellaUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['firstname', 'lastname']
+    REQUIRED_FIELDS = ['firstname', 'lastname', 'email' ]
 
     objects = ZellaUserManager()
 
@@ -83,3 +83,15 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+    
+class UnitRegistration(models.Model):
+    unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
+    student = models.ForeignKey(ZellaUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.unit
+    
+class AssignmentSubmission(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    student = models.ForeignKey(ZellaUser, on_delete=models.CASCADE)
+    score = models.PositiveBigIntegerField(null=True, blank=True)

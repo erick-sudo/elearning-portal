@@ -1,11 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import College, Course, Unit, Quiz, Question, Choice, ZellaUser\
+from .models import College, Course, Unit, Quiz, Question, Choice, ZellaUser
 
 from .forms import ZellaUserCreationForm, ZellaUserChangeForm
 
-from .models import ZellaUser
 
 # Register your models here.
 
@@ -15,8 +14,7 @@ class ChoiceInline(admin.TabularInline):
 class QuestionInline(admin.TabularInline):
     model = Question
     fieldsets = [
-        ('Question', {'fields': ['question_text']}),
-        #('Creation Date', {'fields': ['pub_date'], 'classes': ['collapse']}),
+        ('Question', {'fields': ['question_text']})
     ]
     inlines = [ChoiceInline]
     list_display = ('question_text', 'pub_date' )
@@ -24,17 +22,18 @@ class QuestionInline(admin.TabularInline):
 class QuizAdmin(admin.ModelAdmin):
     model = Quiz
     fieldsets = [
-        ('Quiz', {"fields": ['title','due_date', 'unit']}),
+        ('Quiz', {"fields": ['title', 'unit']}),
     ]
+    list_display= ['title', 'unit', 'due_date']
     classes = ['collapse']
     inlines = [QuestionInline]
 
 class QuestionAdmin(admin.ModelAdmin):
     model = Question
-    ffieldsets = [
+    fieldsets = [
         ('Question', {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
+    list_display = ['question_text', 'pub_date', 'quiz']
     inlines = [ChoiceInline]
     
 
@@ -74,15 +73,15 @@ class ZellaUserAdmin(UserAdmin):
     model = ZellaUser
     list_display = ('firstname', 'lastname', 'email', 'course', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        ("Modify User", {"fields": ("firstname", "lastname", "username", "email", "course")}),
         ("Permissions", {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
-        (None, {
+        ("Create New User", {
             "classes": ("wide",),
             "fields": (
-                "email", "password1", "password2", "is_staff",
-                "is_active", "groups", "user_permissions"
+                "username", "firstname","lastname", "email", "course", "is_staff", 
+                "is_active", "password1", "password2", "groups", "user_permissions"
             )}
         ),
     )

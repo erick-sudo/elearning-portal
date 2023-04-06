@@ -12,4 +12,4 @@ class ZellaUserChangeForm(UserChangeForm):
 
     class Meta:
         model = ZellaUser
-        fields = ('firstname', 'lastname', 'email', 'course')
+        fields = ('firstname', 'lastname', 'email')

@@ -11,5 +11,6 @@ urlpatterns = [
     path('startquiz/<int:quiz_id>/', views.startquiz, name='startquiz'),
     path('profile/', views.profile, name='profile'),
     path('units/', views.units, name='units'),
-    path('courses/', views.courses, name='courses')
+    path('courses/', views.courses, name='courses'),
+    path('register_unit/<int:student_id>/<int:unit_id>/', views.register_unit, name='register_unit')
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib import auth
+from django.contrib.auth import authenticate
 from django.http import HttpResponseRedirect
 
-from .models import ZellaUser, Unit, Question, Quiz, Course, Course
+from .models import ZellaUser, Unit, Question, Quiz, Course, Course, UnitRegistration
 
 from django.core.exceptions import ValidationError
 
@@ -59,7 +60,7 @@ def register(request):
             })
 
         try:
-            ZellaUser.objects.create(username=username, firstname=firstname, lastname=lastname, email=email, password=password)
+            ZellaUser.objects.create_user(username=username, firstname=firstname, lastname=lastname, email=email, password=password)
         except ValidationError:
             print("Validation Errors")
             return render(request, 'zella/register.html', {
@@ -114,8 +115,21 @@ def profile(request):
 
 def units(request):
     if request.user.is_authenticated:
-        units = Unit.objects.all()
-        return render(request, 'zella/units.html', {'units': units})
+        zella_user = ZellaUser.objects.get(username=request.user.username)
+        units = zella_user.unitregistration_set.all()
+        all_units = Unit.objects.all()
+        return render(request, 'zella/units.html', {'registered_units': units, 'units': all_units, 'user': request.user})
+    else:
+        return HttpResponseRedirect('/zella/login')
+    
+def register_unit(request, student_id, unit_id):
+    if request.user.is_authenticated:
+        try:
+            UnitRegistration.objects.get(unit_id=unit_id, student_id=student_id)
+        except UnitRegistration.DoesNotExist:
+            UnitRegistration.objects.create(unit_id=unit_id, student_id=student_id)
+        finally:
+            return HttpResponseRedirect('/zella/units')
     else:
         return HttpResponseRedirect('/zella/login')
 

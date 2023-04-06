@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<h1 class="text-xl font-bold text-center my-8">--------------------------</h1>
+<div class="font-bold text-center">
+    <h1 class="text-xl text-white bg-green-800 py-4 drop-shadow">{{user.course.college}}</h1>
+    <h3 class="mb-4 py-2 text-green-800 bg-slate-400">{{user.course}}<h3>
+</div>
 <div>
     <div class="flex">
         <div class="max-w-lg font-bold mx-auto shadow-md shadow-black flex flex-col py-3 px-8 bg-gradient-to-tr from-white">

@@ -23,8 +23,15 @@
 
         <div class="flex flex-col cursor-pointer">
             <div class="group relative ">
-                <h3 class="font-bold px-2">{{user}}</h3>
-                <div class="group-hover:flex hidden absolute flex-col text-black bg-green-500 right-0 left-0">
+                <div>
+                    <h3 class="font-bold px-2">{{user}}</h3>
+                    {% if user.is_staff %}
+                    <h3 class="font-bold px-2 text-amber-600">Administrator</h3>
+                    {% else %}
+                    <h3 class="font-bold px-2 text-amber-600">Student</h3>
+                    {% endif %}
+                </div>
+                <div class="group-hover:flex hidden absolute z-20 flex-col text-black bg-green-500 right-0 left-0">
                     <a class="hover:bg-slate-900 py-2 hover:text-white px-2 w-full" href="/zella/profile">Profile</a>
                     <a class="hover:bg-slate-900 py-2 hover:text-white px-2" href="/zella/logout">Logout</a>
                 </div>
@@ -42,6 +49,7 @@
                 <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/courses">Courses</a>
                 <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/units">Units</a>
                 <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/quizes">Quizes</a>
+                <a class="hover:bg-slate-900 py-2 hover:text-white" href="/zella/quizes">Grades</a>
             </div>
         </div>
 
